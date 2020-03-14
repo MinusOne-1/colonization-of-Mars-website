@@ -7,7 +7,7 @@ way = 'http://127.0.0.1:8080/'
 
 @app.route('/')
 def default():
-    return '''<div><h1>Миссия Колонизация Марса</h1></div>'''
+    return '''<h1>Миссия Колонизация Марса</h1>'''
 
 
 @app.route('/index')
@@ -36,7 +36,8 @@ def image():
             '''<h1>Жди нас, Марс!</h1>
                 <img src="{}" alt="здесь должна была быть картинка, 
                 но не нашлась">'''.format(url_for('static', filename='image/mars.png')) +
-            """"</body>
+            """"<div>Планета Марс во всей красе</div>
+                </body>
           </html>""")
 
 
