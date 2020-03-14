@@ -24,7 +24,7 @@ def promotion():
 Присоединяйся!'''
 
 
-@app.route('/image_sample')
+@app.route('/image_mars')
 def image():
     return ("""<!doctype html>
                 <html lang="en">
@@ -38,7 +38,39 @@ def image():
                 но не нашлась">'''.format(url_for('static', filename='image/mars.png')) +
             """"<div>Планета Марс во всей красе</div>
                 </body>
-          </html>""")
+                </html>""")
+
+
+@app.route('/promotion_image')
+def bootstrap():
+    lst_of_promotion = ['Человечество вырастает из детства.',
+                        'Человечеству мала одна планета.',
+                        'Мы сделаем обитаемыми безжизненные пока планеты.',
+                        'И начнем с Марса!',
+                        'Присоединяйся!']
+    list_of_alerts = ['success', 'info', 'warning', 'danger', 'primary']
+
+    return ('''<!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <link rel="stylesheet" 
+                    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+                    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+                    crossorigin="anonymous">
+                    <link rel="stylesheet" type="text/css" href="{}" />
+                    <title>Привет, Марс!</title>
+                  </head>
+                  <body>
+                    <h1>Жди нас, Марс!</h1>
+                    <img src="{}" alt="здесь должна была быть картинка, но не нашлась">
+                    '''.format(url_for('static', filename='css/style.css'),
+                               url_for('static', filename='image/mars.png')) +
+            ''.join(['<div class="alert alert-' + list_of_alerts[i]
+                     + '" role="alert">' + lst_of_promotion[i] + '</div>' for i in range(len(lst_of_promotion))])
+            + '''</body> 
+     </html>''')
 
 
 if __name__ == '__main__':
