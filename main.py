@@ -26,9 +26,18 @@ def promotion():
 
 @app.route('/image_sample')
 def image():
-    return '''<h1>Жди нас, Марс!</h1>
-    <img src="{}" alt="здесь должна была быть картинка, 
-    но не нашлась">'''.format(url_for('static', filename='image/mars.png'))
+    return ("""<!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <title>Привет, Марс!</title>
+                  </head>
+                  <body>""" +
+            '''<h1>Жди нас, Марс!</h1>
+                <img src="{}" alt="здесь должна была быть картинка, 
+                но не нашлась">'''.format(url_for('static', filename='image/mars.png')) +
+            """"</body>
+          </html>""")
 
 
 if __name__ == '__main__':
