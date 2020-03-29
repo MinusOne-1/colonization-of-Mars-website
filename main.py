@@ -218,10 +218,36 @@ def greeting(planet_name):
                   <body>
                     <h1>Моё предложение: {}</h1>
                     <h3>Эта планета близка к Земле;</h3>'''.format(planet_name) + \
-                        ''.join(['<div class="alert alert-' + list_of_alerts[i]
-                     + '" role="alert">' + lst_of_promotion[i] + '</div>' for i in range(len(lst_of_promotion))]) + '''
+           ''.join(['<div class="alert alert-' + list_of_alerts[i]
+                    + '" role="alert">' + lst_of_promotion[i] + '</div>' for i in range(len(lst_of_promotion))]) + '''
                   </body>
                 </html>'''
+
+
+@app.route('/results/<nickname>/<int:level>/<float:rating>')
+def res_of_otbor(nickname, level, rating):
+    lst_of_promotion = ['Поздравляем! Ваш рейтинг после {} этапа отбора составляет {}!',
+                        'Желаем удачи!']
+    list_of_alerts = ['success', 'warning']
+    return ('''<!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                   <link rel="stylesheet"
+                   href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                   crossorigin="anonymous">
+                    <title>Результаты</title>
+                  </head>
+                  <body>
+                  <h1>Результаты отбора</h1>
+                    <h3>Претендент на участие в миссии {}:</h3>''' +
+            ''.join(['<div class="alert alert-' + list_of_alerts[i]
+                     + '" role="alert">' + lst_of_promotion[i] + '</div>' for i in range(len(lst_of_promotion))]) + '''
+                  </body>
+                </html>''').format(nickname, level, rating)
+
 
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
