@@ -1,4 +1,5 @@
 from flask import Flask, url_for, request
+import os
 
 app = Flask(__name__)
 
@@ -248,6 +249,86 @@ def res_of_otbor(nickname, level, rating):
                   </body>
                 </html>''').format(nickname, level, rating)
 
+file = 'Файл не выбран'
+@app.route('/load_photo', methods=['POST', 'GET'])
+def load_photo_form():
+    global file
+
+    if request.method == 'GET':
+        return f'''<!doctype html>
+                        <html lang="en">
+                          <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <link rel="stylesheet"
+                            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                            crossorigin="anonymous">
+                            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                            <title>Отбор астронавтов</title>
+                          </head>
+                          <body>
+                            <form method="post" enctype="multipart/form-data">
+                            <div>
+                                <h1>Загрузка фотографии</h1>
+                            </div>
+                            <div>
+                                <h3>для участия в миссии</h3>
+                            </div>
+                            <div>
+                                    <div class="form-group">
+                                        <label for="photo">Приложите фотографию</label>
+                                    </div>
+                                        <input type="file" class="form-control-file" id="file" name="file">
+                                       <label>{file}</label>
+                                    <br>
+                                    <img src="{file}" alt="здесь должна была быть картинка, но не нашлась">
+                                      <br>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </form>
+                            </div>
+                          </body>
+                        </html>'''
+    elif request.method == 'POST':
+        f = request.files['file'].read()
+        image_ = open('static/image/img.png', 'wb')
+        image_.write(f)
+        image_.close()
+        file = 'static/image/img.png'
+        return f'''<!doctype html>
+                        <html lang="en">
+                          <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <link rel="stylesheet"
+                            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                            crossorigin="anonymous">
+                            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                            <title>Отбор астронавтов</title>
+                          </head>
+                          <body>
+                            <form method="post" enctype="multipart/form-data">
+                            <div>
+                                <h1>Загрузка фотографии</h1>
+                            </div>
+                            <div>
+                                <h3>для участия в миссии</h3>
+                            </div>
+                            <div>
+                                    <div class="form-group">
+                                        <label for="photo">Приложите фотографию</label>
+                                    </div>
+                                        <input type="file" class="form-control-file" id="file" name="file">
+                                       <label>{file}</label>
+                                    <br>
+                                    <img src="{file}" alt="здесь должна была быть картинка, но не нашлась">
+                                      <br>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </form>
+                            </div>
+                          </body>
+                        </html>'''
 
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
