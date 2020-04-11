@@ -330,5 +330,70 @@ def load_photo_form():
                           </body>
                         </html>'''
 
+@app.route('/carousel')
+def carousel():
+    lst = [('static/image/mars1.jpg', '...'),
+           ('static/image/mars2.jpg', '...'), ('static/image/mars3.jpg', '...'), ('static/image/mars4.jpg', '...'),
+           ('static/image/mars5.jpg', '...')]
+    return ('''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+      h1 {
+      margin:0 45% 0 40%;
+      width:50%;
+        color: #d22e3a
+      }
+  /* Make the image fully responsive */
+      .carousel-inner img {
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+</head>
+<body>
+<h1>Пейзажи Марса</h1>
+<br>
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+    <li data-target="#demo" data-slide-to="3"></li>
+    <li data-target="#demo" data-slide-to="4"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="''' + lst[0][0] +'''" alt="''' + lst[0][1] +'''" width="2000" height="2000">
+    </div>''' + ''.join([f'''<div class="carousel-item">
+      <img src="{i[0]}" alt="{i[1]}" width="2000" height="2000">
+    </div>''' for i in lst[1:]])
+    + '''
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+</body>
+</html>
+''')
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
