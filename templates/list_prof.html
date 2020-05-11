@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if lst_type == 'ul' %}
+        <ul>
+        {% for item in specialtys %}
+            <li>{{item}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if lst_type == 'ol' %}
+        <ol>
+            {% for item in specialtys %}
+                <li>{{item}}</li>
+            {% endfor %}
+        </ol>
+    {% if lst_type != 'ol' and lst_type != 'ul' %}
+        <div>Неверное заполнение параметра list</div>
+    {% endif %}
+{% endblock %}
