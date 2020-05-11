@@ -21,5 +21,13 @@ def specialty_simulator(prof):
     return render_template('specialty_simulator.html', **param)
 
 
+@app.route('/list_prof/<list>')
+def list_prof(list):
+    param = {}
+    param['specialtys'] = ['Инженер-исследователь', "пилот", "врач", "строитель", "экзобиолог", "климатолог"]
+    param['lst_type'] = list
+    return render_template('list_prof.html', **param)
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
