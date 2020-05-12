@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 def show_orders_db():
     global_init('db/db.sqlite')
     session = create_session()
-    res = [[str(i.id), str(i.user.name + ' ' + i.user.surname), 
+    res = [[str(i.id), str(i.job), str(i.user.name + ' ' + i.user.surname), 
          str(i.work_size), str(i.collaborators), 
          str(i.is_finished)] for i in session.query(Jobs).all()]
     return res
