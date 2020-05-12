@@ -1,5 +1,4 @@
-from data.User import User
-from data import db_session
+from data.Jobs import Jobs
 from data import db_session
 from data.User import User
 
@@ -21,3 +20,4 @@ for i in range(3):
     user.email = astrons[i][6]
     user.hashed_password = astrons[i][7]
     session.add(user)
+session.commit()
