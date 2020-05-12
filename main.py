@@ -1,8 +1,18 @@
 from flask import Flask, render_template, url_for
+from data.db_session import global_init, create_session
+from data.User import User
+from data.Jobs import Jobs
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+def show_orders_db():
+    global_init('db/db.sqlite')
+    session = create_session()
+    res = [[str(i.id), str(i.user.name + ' ' + i.user.surname), 
+         str(i.work_size), str(i.collaborators), 
+         str(i.is_finished)] for i in session.query(Jobs).all()]
+    return res
 
 @app.route('/')
 @app.route('/index')
@@ -10,6 +20,15 @@ def index():
     param = {}
     param['title'] = 'Заготовка'
     return render_template('base.html', **param)
+
+@app.route('/jobs')
+def all_order_func():
+    param = {}
+    param['title'] = 'Работа'
+    param['orders'] = show_orders_db()
+    print(param['orders'])
+    param['len_orders'] = len(param['orders'])
+    return render_template('jobs.html', **param)
 
 
 @app.route('/training/<prof>')
