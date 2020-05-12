@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for i in range(len_orders) %}
+<h3>Action # {{orders[i][0]}}</h3>
+<table class="table">
+    <thead class="thead-light bg-light">
+    <tr>
+        <th>Title</th>
+        <th>Team leader</th>
+        <th>Duration</th>
+        <th>List of collaborators</th>
+        <th>Is finished?</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            {% for j in orders[i][1:] %}
+                <td>{{j}}</td>
+            {% endfor %}
+        </tr>
+    
+    </tbody>
+</table>
+{% endfor %}
+{% endblock %}
