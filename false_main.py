@@ -9,7 +9,7 @@ astrons = [["Scott", "Ridley", 21, "captain", "research engineer", "module_1", "
 
 db_session.global_init('db/db.sqlite')
 session = db_session.create_session()
-for i in range(3):
+for i in range(4):
     user = User()
     user.surname = astrons[i][0]
     user.name = astrons[i][1]
