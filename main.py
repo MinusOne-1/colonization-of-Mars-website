@@ -1,7 +1,24 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
+from wtforms.validators import DataRequired
 
 from data.Jobs import Jobs
 from data.db_session import global_init, create_session
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Login', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password_2 = PasswordField('Repeat password', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    suname = StringField('Surname', validators=[DataRequired()])
+    age = IntegerField('Age', validators=[DataRequired()])
+    position = StringField('Position', validators=[DataRequired()])
+    specialty = StringField('Specialty', validators=[DataRequired()])
+    adress = StringField('Adress', validators=[DataRequired()])
+    submit = SubmitField('Enter')
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -21,6 +38,19 @@ def index():
     param = {}
     param['title'] = 'Заготовка'
     return render_template('base.html', **param)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/success')
+def success():
+    return 'Форма успешно отправлена'
 
 
 @app.route('/jobs')
